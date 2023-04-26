@@ -1,0 +1,114 @@
+<style>
+#chartdiv {
+  width: 100%;
+  max-width: 100%;
+  height: 550px;
+}
+</style>
+
+<!-- Resources -->
+<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/plugins/forceDirected.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+<!-- Chart code -->
+<script>
+am4core.ready(function() {
+
+// Themes begin
+am4core.useTheme(am4themes_animated);
+// Themes end
+
+var chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree);
+chart.legend = new am4charts.Legend();
+
+var networkSeries = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries())
+
+networkSeries.data = [{
+  name: '靜宜大學',
+  children: [{name: '外語學院', 
+              children: [{
+                  name: '英文系', value: 1
+                }, {
+                  name: '西文系', value: 1
+                }, {
+                  name: '日文系', value: 1
+                }]}, 
+             {name: '人社院',
+              children: [{
+                  name: '中文系', value: 1
+                }, {
+                  name: '社工系', value: 1
+                }, {
+                  name: '台文系', value: 1
+                },{
+                  name: '法律系', value: 1
+                },{
+                  name: '生態系', value: 1
+                },{
+                  name: '大傳系', value: 1
+                }]}, 
+             {name: '理學院',
+              children: [{
+                  name: '財工系', value: 1
+                }, {
+                  name: '應化系', value: 1
+                }, {
+                  name: '食營系', value: 1
+                },{
+                  name: '化科系', value: 1
+                },{
+                  name: '資科系', value: 1
+                }]}, 
+             {name: '管理學院',
+              children: [{
+                  name: '企管系', value: 1
+                }, {
+                  name: '國企系', value: 1
+                }, {
+                  name: '會計系', value: 1
+                },{
+                  name: '觀光系', value: 1
+                },{
+                  name: '財金系', value: 1
+                }]}, 
+             {name: '資訊學院',
+              children: [{
+                  name: '資管系', value: 1
+                }, {
+                  name: '資工系', value: 1
+                }, {
+                  name: '資傳系', value: 1                
+                }]}, 
+             {name: '國際學院',
+              children: [{
+                  name: '寰管系', value: 1
+                }, {
+                  name: '寰外系', value: 1
+                }]
+            }]
+}];
+
+networkSeries.dataFields.linkWith = "linkWith";
+networkSeries.dataFields.name = "name";
+networkSeries.dataFields.id = "name";
+networkSeries.dataFields.value = "value";
+networkSeries.dataFields.children = "children";
+
+networkSeries.nodes.template.tooltipText = "{name}";
+networkSeries.nodes.template.fillOpacity = 1;
+
+networkSeries.nodes.template.label.text = "{name}"
+networkSeries.fontSize = 8;
+networkSeries.maxLevels = 3;
+networkSeries.maxRadius = am4core.percent(6);
+networkSeries.manyBodyStrength = -16;
+networkSeries.nodes.template.label.hideOversized = true;
+networkSeries.nodes.template.label.truncate = true;
+
+}); // end am4core.ready()
+</script>
+
+<!-- HTML -->
+<div id="chartdiv"></div>
